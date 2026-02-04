@@ -1,0 +1,8 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd api && dotnet restore Trackify.Api.csproj && dotnet publish Trackify.Api.csproj -c Release -o ../out --no-restore"
+
+[deploy]
+startCommand = "cd out && ASPNETCORE_URLS=http://0.0.0.0:${PORT:-3000} dotnet Trackify.Api.dll"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10

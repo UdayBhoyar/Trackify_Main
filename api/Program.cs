@@ -50,10 +50,21 @@ builder.Services.AddOpenApi();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
-        policy.WithOrigins("http://localhost:4200")
+    {
+        var origins = new List<string> { "http://localhost:4200" };
+        
+        // Add production Vercel URL from environment variable
+        var vercelUrl = Environment.GetEnvironmentVariable("FRONTEND_URL");
+        if (!string.IsNullOrEmpty(vercelUrl))
+        {
+            origins.Add(vercelUrl);
+        }
+        
+        policy.WithOrigins(origins.ToArray())
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials());
+              .AllowCredentials();
+    });
 });
 
 var app = builder.Build();
