@@ -300,10 +300,6 @@ export class ProfileComponent {
 
     const { name, email } = this.profileForm.value;
     
-    // Debug: Log token
-    console.log('Token exists:', !!this.auth.token);
-    console.log('User authenticated:', this.auth.isAuthenticated);
-    
     this.auth.updateProfile(name!, email!, password || undefined).subscribe({
       next: (user) => {
         this.saving = false;

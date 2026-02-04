@@ -48,7 +48,6 @@ export const adminGuard: CanActivateFn = async () => {
       await firstValueFrom(auth.refreshProfile());
     } catch (error) {
       // Token is invalid - clear and redirect
-      console.log('Invalid token detected in admin guard, logging out');
       auth.logout();
       router.navigate(['/login']);
       return false;

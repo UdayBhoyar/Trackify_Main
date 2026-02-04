@@ -28,14 +28,33 @@ public class MongoContext
 
     private void ConfigureIndexes()
     {
-        Users.Indexes.CreateOne(new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(u => u.Email), new CreateIndexOptions { Unique = true }));
-        Categories.Indexes.CreateOne(new CreateIndexModel<Category>(Builders<Category>.IndexKeys.Combine(
-            Builders<Category>.IndexKeys.Ascending(c => c.UserId),
-            Builders<Category>.IndexKeys.Ascending(c => c.Name)
-        ), new CreateIndexOptions { Unique = true }));
-        Expenses.Indexes.CreateOne(new CreateIndexModel<Expense>(Builders<Expense>.IndexKeys.Combine(
-            Builders<Expense>.IndexKeys.Ascending(e => e.UserId),
-            Builders<Expense>.IndexKeys.Descending(e => e.SpentAt)
-        )));
+        try
+        {
+            // Create indexes only if they don't exist
+            Users.Indexes.CreateOne(new CreateIndexModel<User>(
+                Builders<User>.IndexKeys.Ascending(u => u.Email), 
+                new CreateIndexOptions { Unique = true, Name = "email_unique" }
+            ));
+            
+            Categories.Indexes.CreateOne(new CreateIndexModel<Category>(
+                Builders<Category>.IndexKeys.Combine(
+                    Builders<Category>.IndexKeys.Ascending(c => c.UserId),
+                    Builders<Category>.IndexKeys.Ascending(c => c.Name)
+                ), 
+                new CreateIndexOptions { Unique = true, Name = "user_category_unique" }
+            ));
+            
+            Expenses.Indexes.CreateOne(new CreateIndexModel<Expense>(
+                Builders<Expense>.IndexKeys.Combine(
+                    Builders<Expense>.IndexKeys.Ascending(e => e.UserId),
+                    Builders<Expense>.IndexKeys.Descending(e => e.SpentAt)
+                ),
+                new CreateIndexOptions { Name = "user_spentat_idx" }
+            ));
+        }
+        catch (MongoCommandException)
+        {
+            // Indexes already exist - ignore the error
+        }
     }
 }

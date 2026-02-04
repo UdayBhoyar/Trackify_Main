@@ -184,20 +184,16 @@ export class ExpensesComponent implements OnInit {
   }
 
   loadCategories() {
-    console.log('Loading categories...');
     this.categoriesService.getCategories().subscribe({
       next: (cats) => {
-        console.log('Categories loaded:', cats);
         this.categories = cats;
         // Set first category as default if available and form is empty
         if (cats.length > 0 && !this.expenseForm.value.categoryId) {
           this.expenseForm.patchValue({ categoryId: cats[0].id });
-          console.log('Default category set:', cats[0].id);
         }
       },
       error: (err) => {
         this.errorMsg = 'Failed to load categories. Please try again.';
-        console.error('Load categories error:', err);
         setTimeout(() => this.errorMsg = '', 5000);
       }
     });
