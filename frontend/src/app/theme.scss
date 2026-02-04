@@ -1,0 +1,343 @@
+// Theme Enhancement Mixins & Utilities for Components
+// This file provides ready-to-use styling snippets for all components
+
+// ============================================
+// Card & Panel Styles
+// ============================================
+
+@mixin card-base {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+  }
+}
+
+@mixin card-interactive {
+  @include card-base;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// ============================================
+// Button Styles
+// ============================================
+
+@mixin btn-primary {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+
+  &:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(16, 185, 129, 0.05);
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin btn-danger {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: linear-gradient(135deg, var(--danger), #f87171);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// Input & Form Styles
+// ============================================
+
+@mixin input-base {
+  background: var(--bg-light);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all var(--transition-normal);
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin label-base {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+// ============================================
+// Badge & Pill Styles
+// ============================================
+
+@mixin badge-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+@mixin badge-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+@mixin badge-success {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+// ============================================
+// Grid & Layout Utilities
+// ============================================
+
+@mixin grid-auto-fit($min-width: 280px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: 1.5rem;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// ============================================
+// Text & Content Utilities
+// ============================================
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-gradient($from, $to) {
+  background: linear-gradient(135deg, $from, $to);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// ============================================
+// Table Styles
+// ============================================
+
+@mixin table-base {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  tr {
+    transition: all var(--transition-normal);
+
+    &:hover {
+      background: rgba(16, 185, 129, 0.05);
+    }
+  }
+}
+
+// ============================================
+// Modal & Overlay Styles
+// ============================================
+
+@mixin modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn var(--transition-normal);
+}
+
+@mixin modal-content {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-xl);
+  max-width: 500px;
+  width: 90%;
+  animation: slideUp var(--transition-normal);
+}
+
+// ============================================
+// Loading & Skeleton States
+// ============================================
+
+@mixin skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border),
+    rgba(255, 255, 255, 0.2),
+    var(--border)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  border-radius: var(--radius-md);
+}
+
+@mixin loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// ============================================
+// Responsive Utilities
+// ============================================
+
+@mixin responsive-padding($mobile: 1rem, $tablet: 1.5rem, $desktop: 2rem) {
+  padding: $mobile;
+
+  @media (min-width: 768px) {
+    padding: $tablet;
+  }
+
+  @media (min-width: 1024px) {
+    padding: $desktop;
+  }
+}
+
+@mixin responsive-gap($mobile: 0.75rem, $tablet: 1rem, $desktop: 1.5rem) {
+  gap: $mobile;
+
+  @media (min-width: 768px) {
+    gap: $tablet;
+  }
+
+  @media (min-width: 1024px) {
+    gap: $desktop;
+  }
+}
